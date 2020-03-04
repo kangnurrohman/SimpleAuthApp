@@ -4,12 +4,16 @@ const app = express();
 const path = require('path');
 const dotenv = require('dotenv');
 const mongoose = require('mongoose');
+const passport = require('passport');
 const flash = require('connect-flash');
 const bodyParser = require('body-parser');
 const session = require('express-session');
+const localStrategy = require('passport-local').Strategy;
 
 // Requiring user route
 const userRoutes = require('./routes/users');
+// Requiring user model
+const User = require('./models/usermodel');
 
 dotenv.config({
  path: './config.env'
@@ -27,6 +31,14 @@ app.use(session({
  resave: true,
  saveUninitialized: true
 }));
+
+app.use(passport.initialize());
+app.use(passport.session());
+passport.use(new localStrategy({
+ usernameField: 'email'
+}, User.authenticate()));
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
 
 // middleware flash messages
 app.use(flash());
