@@ -28,8 +28,9 @@
   <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
    <div class="mr-5">
     <ul class="navbar-nav mr-auto mr-0">
+     <% if(currentUser) { %>
      <li class="nav-item">
-      <a class="nav-link text-white" href="#">Username</a>
+      <a class="nav-link text-white" href="#"><%= currentUser.name %></a>
      </li>
      <li class="nav-item">
       <a class="nav-link text-white" href="/logout">Changes Password</a>
@@ -37,6 +38,7 @@
      <li class="nav-item">
       <a class="nav-link text-white" href="/logout">Logout</a>
      </li>
+     <% } %>
     </ul>
    </div>
   </div>

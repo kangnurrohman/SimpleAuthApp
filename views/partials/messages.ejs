@@ -3,3 +3,7 @@
 <% } else if(error_msg && success_msg != '') { %>
 <div class="alert alert-danger"><%= error_msg %></div>
 <% } %>
+
+<% if(error && error != ''){ %>
+<div class="alert alert-danger"><%= error %></div>
+<% } %>
