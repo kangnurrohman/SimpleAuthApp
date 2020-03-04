@@ -8,6 +8,9 @@ const flash = require('connect-flash');
 const bodyParser = require('body-parser');
 const session = require('express-session');
 
+// Requiring user route
+const userRoutes = require('./routes/users');
+
 dotenv.config({
  path: './config.env'
 });
@@ -32,6 +35,7 @@ app.use(flash());
 app.use((req, res, next) => {
  res.locals.success_msg = req.flash(('success_msg'));
  res.locals.error_msg = req.flash(('error_msg'));
+ next();
 });
 
 app.use(bodyParser.urlencoded({
@@ -39,6 +43,9 @@ app.use(bodyParser.urlencoded({
 }));
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
+app.use(express.static('public'));
+
+app.use(userRoutes);
 
 app.listen(process.env.PORT, () => {
  console.log('Connected!!!');
